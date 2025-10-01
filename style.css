@@ -1,0 +1,24 @@
+/* import google fonts... */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Playfair Display";
+    line-height: 1.6;
+    color: #333;
+}
+
+header {
+    background: #D6FFAD;
+    padding: 1rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
