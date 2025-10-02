@@ -103,7 +103,7 @@ nav a:hover {
 .gallery h2 {
     font-size: 2.5rem;
     margin-bottom: 3rem;
-    color: #1a1a1a;
+    color: #6F496F;
 }
 
 .slider-container {
@@ -218,6 +218,10 @@ nav a:hover {
 .menu {
     padding: 4rem 2rem;
     background: #E7DAE7;
+}
+
+.menu h1, h2  {
+    color: #6F496F
 }
 
 .menu-grid {
