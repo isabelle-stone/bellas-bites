@@ -42,7 +42,7 @@ prevBtn.addEventListener('click', prevSlide);
 
 dots.forEach((dot, index) => {
     dot.addEventListener('click', () => {
-        showSlide(idex);
+        showSlide(index);
     });
 });
 
