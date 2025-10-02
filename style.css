@@ -52,7 +52,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #7cb342;
+    color: #563856;
 }
 
 /********** Hero Section **********/
@@ -90,7 +90,7 @@ nav a:hover {
 }
 
 .btn:hover {
-    background: #558b2f;
+    background: #634063;
 }
 
 /******Gallery Slider *********/
@@ -150,7 +150,7 @@ nav a:hover {
 }
 
 .slider-dot.active {
-    background: #7cb342;
+    background: #B690B6;
 }
 
 /* ******** Arrows ******** */
@@ -191,7 +191,7 @@ nav a:hover {
 .about h2 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    color: #365c1c;
+    color: #563856;
     text-align: center;
 }
 
@@ -279,7 +279,7 @@ nav a:hover {
 .contact h2 {
     font-size: 2.5rem;
     margin-bottom: 3rem;
-    color: #485D32;
+    color: #6F496F;
     text-align: center;
 }
 
@@ -290,7 +290,7 @@ nav a:hover {
 }
 
 .contact-form {
-    background: #f8f9fa;
+    background: #F7F3F7;
     padding: 2rem;
     border-radius: 10px;
 }
@@ -302,7 +302,7 @@ nav a:hover {
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
-    color: #365c1c;
+    color: #A675A1;
     font-weight: 600;
 }
 
@@ -320,7 +320,7 @@ nav a:hover {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #7cb342;
+    border-color: #936287;
 }
 
 .form-group textarea {
@@ -331,7 +331,7 @@ nav a:hover {
 .submit-btn {
     width: 100%;
     padding: 1rem;
-    background: #365c1c;
+    background: #A675A1;
     color: #fff;
     border: none;
     border-radius: 50px;
@@ -342,7 +342,7 @@ nav a:hover {
 }
 
 .submit-btn:hover {
-    background: #558b2f;
+    background: #563856;
 }
 
 .map-container {
@@ -395,7 +395,7 @@ footer {
 }
 
 .social-links a:hover {
-    color: #7cb342;
+    color: #563856;
 }
 
 .footer-bottom {
@@ -403,4 +403,101 @@ footer {
     margin-top: 2rem;
     padding-top: 2rem;
     border-top: 1px solid #444;
+}
+
+/******** Media Queries ************/
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    transition: 0.3s;
+}
+
+/********* MOBILE ***********/
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    nav ul {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background: #A675A1;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        padding: 2rem 0;
+        gap: 1rem;
+    }
+
+    nav ul.active {
+        left: 0;
+    }
+    
+    /*** Hero Section ***/
+    .hero {
+        height: 350px;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+
+     /*** About ***/
+     .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    /*** Menu ***/
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /*** Contact   ***/
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Slider */
+    .slide {
+        height: 350px;
+    }
+    
+    /* Footer */
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .gallery h2,
+    .about h2,
+    .menu h2,
+    .contact h2 {
+        font-size: 2rem;
+    }
 }
