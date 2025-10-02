@@ -253,19 +253,19 @@ nav a:hover {
 }
 
 .menu-item h3 {
-    color: #946194;
+    color: #6E4965;
     margin-bottom: 0.5rem;
     font-size: 1.5rem;
 }
 
 .menu-item p {
-    color: #666;
+    color: #946194;
     margin-bottom: 1rem;
 }
 
 .menu-item .price {
     font-size: 1.3rem;
-    color: #708B75;
+    color: #946194;
     font-weight: bold;
 }
 
