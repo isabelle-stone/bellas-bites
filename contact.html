@@ -19,8 +19,37 @@
             </nav>
         </header>
 
+        <!-- Contact Form -->
         <section class="contact">
             <h1>Get In Touch</h1>
+
+            <div class="contact-container">
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message:</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+
+                <div class="map">
+                    <h2>Visit Us!</h2>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.4920791365936!2d-73.986926!3d40.729958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDQzJzQ3LjgiTiA3M8KwNTknMTIuOSJX!5e0!3m2!1sen!2sus!4v1234567890" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+
+
+
             <div class="contact-info">
                 <h2>Visit Us!</h2>
                 <p>New York, NY</p>
@@ -28,28 +57,8 @@
                 <p>Email: </p>
             </div>
             <!-- Google Map -->
-            <div class="map">
-                <h2>Find Us</h2>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.4920791365936!2d-73.986926!3d40.729958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDQzJzQ3LjgiTiA3M8KwNTknMTIuOSJX!5e0!3m2!1sen!2sus!4v1234567890" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
 
-            <!-- Contact Form -->
-            <div class="contact-form">
-                <h2>Send us a message!</h2>
-                <form>
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required><br><br>
 
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required><br><br>
-
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" rows="5" required></textarea><br><br>
-
-                    <button type="submit">Send Message</button>
-
-                </form>
-            </div>
         </section>
     </body>
 </html>
