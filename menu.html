@@ -24,6 +24,8 @@
                     <li><a href="about.html">About</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
+
+                
             </nav>
         </header>
 
@@ -33,8 +35,8 @@
             <p><em>All of our food is plant based and gluten-free!</em></p><br>
 
             <h2>Breakfast:</h2> <br>
-            <div class="menu-grid" onclick="addToCart('Avocado Toast', 9.99)">
-                <div class="menu-item">
+            <div class="menu-grid" >
+                <div class="menu-item" onclick="addToCart('Avocado Toast', 9.99)">
                     <img src="https://images.unsplash.com/photo-1650092194571-d3c1534562be?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1740">
                     <h3>Avocado Toast</h3>
                     <p>Smashed organic avocado on toasted GF superseed bread, topped with cherry tomatoes, microgreens, hemp seeds, and a sprinkle of sea salt. </p>
@@ -99,12 +101,28 @@
 
         </section>
 
+        <!--  cart button -->
+        <div class="floating-cart-btn" onclick="toggleCart()">
+            cart icon
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+
         <!-- Cart Sidebar -->
         <div class="cart-sidebar" id="cartSidebar">
             <div class="cart-header">
                 <h2>Your Cart</h2>
                 <button class="close-cart" onclick="toggleCart()">x</button>
             </div>
+            <div class="cart-items" id="cartItems">
+                <p class="empty-cart">Your cart is empty</p>
+            </div>
+            <div class="cart-actions" id="cartActions" style="display: none;">
+                <button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+            </div> 
+            <div class="cart-total" id="cartTotal" style="display: none;"> 
+                <h3>Total: $<span id="totalAmount">0.00</span></h3> 
+            </div>
+            
         </div>
 
         <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>

@@ -78,6 +78,7 @@ if (hamburger && navMenu) {
 let cart = [];
 
 function addToCart(name, price) {
+    console.log("Clicked!", name, price);
     const exists = cart.find(item => item.name == name);
     if(exists) {
         exists.quantity += 1;  // increase if existing item... exists ...lol
@@ -105,4 +106,65 @@ function showCart() {
 
     cartSidebar.classList.add('open');
     cartOverlay.classList.add('active');
+}
+
+function updateCartDisplay() {
+    const items = document.getElementById('cartItems');
+    const total = document.getElementById('cartTotal');
+    const actions = document.getElementById('cartActions');
+
+    if (cart.length == 0) {
+        items.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+        total.style.display = 'none';
+        actions.style.display = 'none';
+    }
+    else {
+        items.innerHTML = cart.map( item => `
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-price">$${item.price.toFixed(2)} each</div>
+                </div>
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity('${item.name}', -1)">-</button>
+                    <span class="quantity">${item.quantity}</span>
+                    <button class="quantity-btn" onclick="updateQuantity('${item.name}', 1)">+</button>
+                </div>
+                <button class="remove-item" onclick="removeFromCart('${item.name}')">Remove</button>
+            </div>
+       `).join('');
+    }
+}
+
+function updateCartCount() {
+    const count = document.getElementById('cartCount');
+    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+    count.textContent = totalItems;
+}
+
+function removeFromCart(name) {
+    cart = cart.filter(item => item.name !== name);
+    updateCartDisplay();
+    updateCartCount();
+}
+
+function updateQuantity(name, change) {
+    const item = cart.find(item => item.name === name);
+    if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+            removeFromCart(name);
+        }
+        else {
+            updateCartDisplay();
+            updateCartCount();
+        }
+
+    }
+}
+
+function clearCart() { 
+    cart = []; 
+    updateCartDisplay(); 
+    updateCartCount(); 
 }
