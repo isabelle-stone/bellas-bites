@@ -1,3 +1,4 @@
+
 // For sliding images...
 
 // only runs if slider on page...
@@ -73,3 +74,35 @@ if (hamburger && navMenu) {
     
 }
 
+// Shopping cart
+let cart = [];
+
+function addToCart(name, price) {
+    const exists = cart.find(item => item.name == name);
+    if(exists) {
+        exists.quantity += 1;  // increase if existing item... exists ...lol
+    }
+    else {
+        cart.push({name: name, price: price, quantity: 1});
+    }
+    updateCartDisplay();
+    updateCartCount();
+
+    showCart();
+}
+
+function toggleCart() {
+    const cartSidebar = document.getElementById('cartSidebar');
+    const cartOverlay = document.getElementById('cartOverlay');
+
+    cartSidebar.classList.toggle('open');
+    cartOverlay.classList.toggle('active');
+}
+
+function showCart() {
+    const cartSidebar = document.getElementById('cartSidebar');
+    const cartOverlay = document.getElementById('cartOverlay');
+
+    cartSidebar.classList.add('open');
+    cartOverlay.classList.add('active');
+}
