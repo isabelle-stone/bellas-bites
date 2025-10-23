@@ -531,6 +531,7 @@ footer {
     overflow: hidden;
     padding-top: 10px;
     padding-left: 10px;
+    padding-right: 10px;
 }
 
 .cart-items {
@@ -759,6 +760,20 @@ footer {
     .social-links {
         justify-content: center;
     }
+
+    /* Cart Mobile */
+    .cart-sidebar {
+        width: 100vw;
+        right: -100vw;
+    }
+
+    .cart-sidebar.open {
+        right: 0;
+    }
+    .cart-header {
+        padding: 1rem;
+    }
+
 }
 
 @media (max-width: 480px) {
