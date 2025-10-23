@@ -475,6 +475,7 @@ footer {
     background: rgba(0, 0, 0, 0.5);
     display: none;
 }
+
 /* Floating Cart Button */
 .floating-cart-btn {
     position: fixed;
@@ -547,6 +548,29 @@ footer {
     border-bottom: 1px solid;
 }
 
+.cart-actions {
+    padding: 1rem;
+    text-align: right;
+}
+
+.cart-total {
+    padding: 1rem;
+    padding-bottom: 2rem;
+}
+
+.clear-cart-btn {
+    background: #946194;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    font-family: "Playfair Display";
+    margin-left: auto;
+}
+
 .click-text {
     color: #946194;
     font-style: italic; 
@@ -556,6 +580,10 @@ footer {
     right: 1rem;
     position: absolute;
     transition: color 0.3s ease;
+}
+
+.clear-cart-btn:hover {
+    background: #6F496F;
 }
 
 .menu-item:hover .click-text {
@@ -592,6 +620,12 @@ footer {
     transform: scale(1.1);
 }
 
+.quantity {
+    min-width: 30px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
 .quantity-btn {
     background: #A675A1;
     color: white;
@@ -614,6 +648,24 @@ footer {
     gap: 0.5rem;
     margin: 0 1rem;
     flex-direction: row;
+}
+
+.remove-item {
+    background: #6F496F;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    font-family: "Playfair Display";
+}
+
+.remove-item:hover {
+    background: #9a649a;
+    transform: scale(1.05);
 }
 
 /******** Media Queries ************/
