@@ -133,6 +133,12 @@ function updateCartDisplay() {
                 <button class="remove-item" onclick="removeFromCart('${item.name}')">Remove</button>
             </div>
        `).join('');
+
+       const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+       document.getElementById('totalAmount').textContent = cartTotal.toFixed(2);
+
+       total.style.display = 'block';
+       actions.style.display = 'block';
     }
 }
 

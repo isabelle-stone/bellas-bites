@@ -449,7 +449,7 @@ footer {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    background: #7cb342;
+    background: #A675A1;
     color: white;
     width: 60px;
     height: 60px;
@@ -472,14 +472,14 @@ footer {
     position: absolute;
     top: -5px;
     right: -5px;
-    background: #365c1c;
+    background: #6F496F;
     color: white;
     border-radius: 50%;
     width: 25px;
     height: 25px;
     font-size: 0.8rem;
     display: flex;
-    align-items: center;
+    align-items: center-top;
     justify-content: center;
     font-weight: bold;
 }
@@ -489,7 +489,7 @@ footer {
     right: -600px;
     width: 600px;
     height: 100vh;
-    background: white;
+    background: #E7DAE7; 
     box-shadow: -2px 0 10px rgba(0,0,0,0.3);
     padding-top: 100px;
     padding-left: 10px;
@@ -513,7 +513,7 @@ footer {
     justify-content: center;
 }
 .close-cart:hover {
-    background: #ff3742;
+    background: #6F496F;
     transform: scale(1.1);
 }
 
