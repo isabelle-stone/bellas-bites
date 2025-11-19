@@ -1,4 +1,4 @@
-import { useState} from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
@@ -11,6 +11,16 @@ function App() {
     "https://images.unsplash.com/photo-1504718855392-c0f33b372e72?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://images.unsplash.com/photo-1572616890089-6f8642c23eb3?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [slides.length]);
+
+
   return (
     <div className='App'>
       {/* Header */}
@@ -39,10 +49,12 @@ function App() {
       <section className='gallery'>
         <h2>Some of Our Food...</h2>
         <div className='slider-container'>
-          <div className='slider'>
-            <div className='slide'>
-              <img src={slides[currentSlide]} alt='Food Image' />
-            </div>
+          <div className='slider' style={{transform: `translateX(-${currentSlide * 100}%)`}}>
+            {slides.map((slide, index) => (
+              <div key={index} className='slide'>
+                <img src={slide} alt='Food Image' />
+              </div>
+            ))}
           </div>
           <button
             className='slider-arrow prev'
