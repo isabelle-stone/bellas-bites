@@ -28,7 +28,7 @@ function Home() {
         <div className='hero-content'>
           <h1>Bella's Bites</h1>
           <p>100% Vegan & Gluten Free</p>
-          <a href='#menu' className='btn'>View Our Menu</a>
+          <a href='/menu' className='btn'>View Our Menu</a>
         </div>
       </section>
 
