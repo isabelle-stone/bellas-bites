@@ -1,7 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 5001;
+
+const MenuItem = require('./models/MenuItems');
+
 
 // if anyone is reading this please know this is the one and only time I would put a connection string here (for hw assignment)
 const uri = "mongodb+srv://admin:HFnaN0XAdnOZsU6d@cluster0.agwnq69.mongodb.net/?appName=Cluster0";
@@ -27,3 +31,12 @@ app.listen(PORT, () => {
     console.log(`AHHHHHHHHHHHHHHhhhhhh`);
 });
 
+
+app.get('api/menu', async (req, res) => {
+    try {
+        const menuItems = await MenuItem.find();
+        res.json(menuItems);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+});
