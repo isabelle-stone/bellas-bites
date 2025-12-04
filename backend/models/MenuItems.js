@@ -3,24 +3,24 @@ const mongoose = require('mongoose');
 const menuItemSchema = new mongoose.Schema({
     name: {
         type: String,
-        reuquired: true
+        required: true
     },
     price: {
         type: Number,
-        reuquired: true
+        required: true
     },
     description: {
         type: String,
-        reuquired: true
+        required: true
     },
     image: {
         type: String,
-        reuquired: true
+        required: true
     },
-    catagory: {
+    category: {
         type: String,
-        reuquired: true,
-        enum: ['breakfast', 'lunch', 'dinner']
+        required: true,
+        enum: ['breakfast', 'lunch & dinner']
     }
 }, {
     timestamps: true

@@ -1,14 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 
 function Menu() {
     const [cart, setCart] = useState([]);
     const [isCartOpen, setIsCartOpen] = useState(false);
 
+    const [menuItems, setMenuItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      fetchMenuItems();
+    }, []);
+
+    const fetchMenuItems = async () => {
+      try {
+        const response = await fetch('http://localhost:5001/api/menu');
+        const data = await response.json();
+        setMenuItems(data);
+        setLoading(false);
+      }
+      catch (error) {
+        console.error('Error w fetching menu: ', error);
+        setLoading(false);
+      }
+
+    };
+
     const addToCart = (name, price) => {
         const existingItem = cart.find(item => item.name === name);
         if (existingItem) {
             setCart(cart.map(item => item.name === name ? { ...item, quantity: item.quantity + 1} : item ));
-        } 
+        }
         else {
             setCart([...cart, {name, price, quantity: 1}]);
         }
@@ -42,7 +63,8 @@ function Menu() {
                 <h1>Our Menu</h1>
                 <p><em>All of our food is plant based and gluten-free!</em></p><br /> 
 
-                <h2>Breakfast:</h2> <br />
+                {/*  OLD HARDCODED VERSION...
+                <h2>Breakfast:</h2> <br /> 
                 <div className="menu-grid" >
                     <div className="menu-item" onClick={() => addToCart('Avocado Toast', 9.99)}>
                     <img src="https://images.unsplash.com/photo-1650092194571-d3c1534562be?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1740"/>
@@ -106,6 +128,49 @@ function Menu() {
 
                 </div>
             </div>
+          */}
+
+          { loading ? ( <p>Loading page...</p> ) : (
+            <>
+              <h2>Breakfast:</h2><br />
+              <div className='menu-grid'>
+                { menuItems
+                      .filter(item => item.category === 'breakfast')
+                      .map(item => (
+                        <div key={item._id} className='menu-item' onClick={() => addToCart(item.name, item.price)}>
+                          <img src={item.image} alt={item.name} />
+                          <h3>{item.name}</h3>
+                          <p>{item.description}</p>
+                          <div className='item-footer'>
+                            <span className='price'>${item.price.toFixed(2)}</span>
+                            <span className='click-text'>Click to add to cart</span>
+                          </div>
+                        </div>
+                      ))}
+              </div>
+              <br />
+              <h2>Lunch & Dinner: </h2>
+              <br />
+              <div className='menu-grid'>
+                { menuItems
+                      .filter(item => item.category === 'lunch & dinner')
+                      .map(item => (
+                        <div key={item._id} className='menu-item' onClick={() => addToCart(item.name, item.price)}>
+                          <img src={item.image} alt={item.name} />
+                          <h3>{item.name}</h3>
+                          <p>{item.description}</p>
+                          <div className='item-footer'>
+                            <span className="price">${item.price.toFixed(2)}</span>
+                            <span className='click-text'>Click to add to cart</span>
+                          </div>
+                        </div>
+                      ))
+                }
+              </div>
+            
+            </>
+          )}
+
 
         </section>
 

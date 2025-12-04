@@ -27,16 +27,18 @@ app.get('/api/test', (req, res) => {
     res.json({ message: "byeeeeee", timestamp: new Date().toISOString() })
 })
 
-app.listen(PORT, () => {
-    console.log(`AHHHHHHHHHHHHHHhhhhhh`);
-});
 
 
-app.get('api/menu', async (req, res) => {
+app.get('/api/menu', async (req, res) => {
     try {
         const menuItems = await MenuItem.find();
         res.json(menuItems);
     } catch (error) {
         res.status(500).json({message: error.message});
     }
+});
+
+
+app.listen(PORT, () => {
+    console.log(`AHHHHHHHHHHHHHHhhhhhh`);
 });
