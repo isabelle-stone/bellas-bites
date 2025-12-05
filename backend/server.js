@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -7,7 +9,6 @@ const PORT = process.env.PORT || 5001;
 const MenuItem = require('./models/MenuItems');
 const Order = require('./models/Order');
 
-require('dotenv').config();
 
 
 const uri = process.env.MONGODB_URI;

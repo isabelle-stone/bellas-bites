@@ -93,7 +93,7 @@ nav a:hover {
     background: #634063;
 }
 
-/******Gallery Slider *********/
+/****** Gallery Slider *********/
 .gallery {
     padding: 4rem 2rem;
     background: #f8f9fa;
@@ -668,6 +668,52 @@ footer {
     background: #9a649a;
     transform: scale(1.05);
 }
+
+/***** CHECKOUT ******/
+.checkout-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #A675A1;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-family: "Playfair Display";
+    margin-top: 1rem;
+}
+
+.checkout-btn:hover { 
+    background: #6F496F; 
+}
+
+.checkout-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkout-modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+
+}
+
+
 
 /******** Media Queries ************/
 /* Hamburger Menu */
