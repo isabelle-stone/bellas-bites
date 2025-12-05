@@ -3,10 +3,8 @@ import { useState, useEffect} from 'react';
 function Menu() {
     const [cart, setCart] = useState([]);
     const [isCartOpen, setIsCartOpen] = useState(false);
-
     const [menuItems, setMenuItems] = useState([]);
     const [loading, setLoading] = useState(true);
-
     const [showCheckout, setShowCheckout] = useState(false);
     const [customerInfo, setCustomerInfo] = useState({
       name: '',
@@ -30,7 +28,6 @@ function Menu() {
         console.error('Error w fetching menu: ', error);
         setLoading(false);
       }
-
     };
 
     const addToCart = (name, price) => {
@@ -65,7 +62,6 @@ function Menu() {
     const getTotalItems = () => cart.reduce((total, item) => total + item.quantity, 0);
     const getTotalPrice = () => cart.reduce((total, item) => total + (item.price * item.quantity), 0);
 
-
     const handleCheckout = async () => {
       setOrderStatus('submitting');
 
@@ -80,17 +76,17 @@ function Menu() {
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(orderData)
         });
-        const result = await response.json()
+        const result = await response.json();
+        
         if (response.ok) {
           setOrderStatus('success');
-          setCart([])
+          setCart([]);
           setCustomerInfo({ name: '', email: '', phone: ''});
           setTimeout(() => {
             setShowCheckout(false);
             setOrderStatus('');
             setIsCartOpen(false);
-
-          }, 3000) // 3 sec
+          }, 3000);
         }
         else {
           setOrderStatus('error');
@@ -100,172 +96,182 @@ function Menu() {
         setOrderStatus('error');
       }
     };
+
     return (
         <>
             <section className="menu">
                 <h1>Our Menu</h1>
                 <p><em>All of our food is plant based and gluten-free!</em></p><br /> 
 
-                {/*  OLD HARDCODED VERSION...
-                <h2>Breakfast:</h2> <br /> 
-                <div className="menu-grid" >
-                    <div className="menu-item" onClick={() => addToCart('Avocado Toast', 9.99)}>
-                    <img src="https://images.unsplash.com/photo-1650092194571-d3c1534562be?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1740"/>
-                    <h3>Avocado Toast</h3>
-                    <p>Smashed organic avocado on toasted GF superseed bread, topped with cherry tomatoes, microgreens, hemp seeds, and a sprinkle of sea salt. </p>
-                    <div className="item-footer">
-                        <span className="price">$9.99</span>
-                        <span className="click-text">Click to add to cart</span>
-                    </div>
-                </div>
+                {loading ? ( 
+                    <p>Loading page...</p> 
+                ) : (
+                    <>
+                      <h2>Breakfast:</h2><br />
+                      <div className='menu-grid'>
+                        {menuItems
+                              .filter(item => item.category === 'breakfast')
+                              .map(item => (
+                                <div key={item._id} className='menu-item' onClick={() => addToCart(item.name, item.price)}>
+                                  <img src={item.image} alt={item.name} />
+                                  <h3>{item.name}</h3>
+                                  <p>{item.description}</p>
+                                  <div className='item-footer'>
+                                    <span className='price'>${item.price.toFixed(2)}</span>
+                                    <span className='click-text'>Click to add to cart</span>
+                                  </div>
+                                </div>
+                              ))}
+                      </div>
+                      <br />
+                      <h2>Lunch & Dinner:</h2>
+                      <br />
+                      <div className='menu-grid'>
+                        {menuItems
+                              .filter(item => item.category === 'lunch & dinner')
+                              .map(item => (
+                                <div key={item._id} className='menu-item' onClick={() => addToCart(item.name, item.price)}>
+                                  <img src={item.image} alt={item.name} />
+                                  <h3>{item.name}</h3>
+                                  <p>{item.description}</p>
+                                  <div className='item-footer'>
+                                    <span className="price">${item.price.toFixed(2)}</span>
+                                    <span className='click-text'>Click to add to cart</span>
+                                  </div>
+                                </div>
+                              ))
+                        }
+                      </div>
+                    </>
+                )}
+            </section>
 
-                <div className="menu-item" onClick={() => addToCart('Açai Smoothie Bowl', 8.99)}>
-                    <img src="https://images.unsplash.com/photo-1684403731883-67a71a793d2d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=774"/>
-                    <h3>Açai Smoothie Bowl</h3>
-                    <p>Blend of organic açai berries topped with fresh strawberries, sliced bananas, crunchy granola, coconut flakes.</p>
-                    <div className="item-footer">
-                        <span className="price">$8.99</span>
-                        <span className="click-text">Click to add to cart</span>
-                    </div>
-                </div>
-                <div className="menu-item" onClick={() => addToCart('Breakfast Burrito', 9.99)}>
-                    <img src="https://images.unsplash.com/photo-1566740933430-b5e70b06d2d5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1740"/>
-                    <h3>Breakfast Burrito</h3>
-                    <p>GF wrap filled with seasoned tofu scramble, creamy avocado, sautéed peppers and onions, black beans, and fresh salsa.</p>
-                    <div className="item-footer">
-                        <span className="price">$9.99</span>
-                        <span className="click-text">Click to add to cart</span>
-                    </div>
-                </div> 
+            {/* Floating Cart Button */}
+            <div className="floating-cart-btn" onClick={() => setIsCartOpen(!isCartOpen)}>
+              <i className="fa fa-shopping-cart" style={{fontSize:'24px'}}></i>
+              <span className="cart-count">{getTotalItems()}</span>
             </div>
-            <br />
-            <h2>Lunch & Dinner:</h2>
-            <br />
-            <div className="menu-grid">
-                <div className="menu-item" onClick={() => addToCart('Roasted Veggie Bowl', 12.99)}>
-                    <img src="https://images.unsplash.com/photo-1631311695255-8dde6bf96cb5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=776"/>
-                    <h3>Roasted Veggie Bowl</h3>
-                    <p>Roasted sweet potatoes, seasonal vegetables, chickpeas, and quinoa drizzled with creamy tahini lemon dressing.</p>
-                    <div className="item-footer">
-                        <span className="price">$12.99</span>
-                        <span className="click-text">Click to add to cart</span>
-                    </div>
-                </div>
-                <div className="menu-item" onClick={() => addToCart('Black Bean Burger', 12.99)}>
-                    <img src="https://images.unsplash.com/photo-1525059696034-4967a8e1dca2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=776"/>
-                    <h3>Black Bean Burger</h3>
-                    <p>House-made black bean patty topped with fresh lettuce, tomato, avocado, and vegan aioli on a toasted GF bun. Served with crispy sweet potato fries.</p>
-                    <div className="item-footer">
-                        <span className="price">$12.99</span>
-                        <span className="click-text">Click to add to cart</span>
-                    </div>
-                </div>
-                <div className="menu-item" onClick={() => addToCart('Pesto Pasta', 11.99)}>
-                    <img src="https://plus.unsplash.com/premium_photo-1661293863488-4bed6c84c77a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=774"/>
-                    <h3>Pesto Pasta</h3>
-                    <p>GF pasta tossed in house-made basil pesto with roasted cherry tomatoes, spinach, and pine nuts.</p>
-                    <div className="item-footer">
-                        <span className="price">$11.99</span>
-                        <span className="click-text">Click to add to cart</span>
-                    </div>
 
-                </div>
+            {/* Cart Sidebar */}
+            <div className={`cart-sidebar ${isCartOpen ? 'open' : ''}`}>
+              <div className="cart-header">
+                <button className="close-cart" onClick={() => setIsCartOpen(false)}>✖</button>
+                <h2>Your Cart</h2>
+              </div>
+              <div className="cart-items">
+                {cart.length === 0 ? (
+                  <p className="empty-cart">Your cart is empty</p>
+                ) : (
+                  cart.map((item) => (
+                    <div key={item.name} className="cart-item">
+                      <div className="cart-item-info">
+                        <div className="cart-item-name">{item.name}</div>
+                        <div className="cart-item-price">${item.price.toFixed(2)} each</div>
+                      </div>
+                      <div className="quantity-controls">
+                        <button className="quantity-btn" onClick={() => updateQuantity(item.name, -1)}>-</button>
+                        <span className="quantity">{item.quantity}</span>
+                        <button className="quantity-btn" onClick={() => updateQuantity(item.name, 1)}>+</button>
+                      </div>
+                      <button className="remove-item" onClick={() => removeFromCart(item.name)}>Remove</button>
+                    </div>
+                  ))
+                )}
+              </div>
+              {cart.length > 0 && (
+                <>
+                  <div className="cart-actions">
+                    <button className="clear-cart-btn" onClick={clearCart}>Clear Cart</button>
+                  </div>
+                  <div className="cart-total">
+                    <h3>Total: ${getTotalPrice().toFixed(2)}</h3>
+                    <button 
+                      className='checkout-btn'
+                      onClick={() => setShowCheckout(true)}
+                      disabled={cart.length === 0}
+                    >
+                      Checkout
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
-          */}
 
-          { loading ? ( <p>Loading page...</p> ) : (
-            <>
-              <h2>Breakfast:</h2><br />
-              <div className='menu-grid'>
-                { menuItems
-                      .filter(item => item.category === 'breakfast')
-                      .map(item => (
-                        <div key={item._id} className='menu-item' onClick={() => addToCart(item.name, item.price)}>
-                          <img src={item.image} alt={item.name} />
-                          <h3>{item.name}</h3>
-                          <p>{item.description}</p>
-                          <div className='item-footer'>
-                            <span className='price'>${item.price.toFixed(2)}</span>
-                            <span className='click-text'>Click to add to cart</span>
+            {/* Cart Overlay */}
+            {isCartOpen && <div className="cart-overlay" onClick={() => setIsCartOpen(false)}></div>}
+
+            {/* Checkout Modal */}
+            {showCheckout && (
+              <div className='checkout-overlay'>
+                <div className='checkout-modal'>
+                  <div className='checkout-header'>
+                    <h2>Checkout</h2>
+                    <button onClick={() => setShowCheckout(false)}>✖</button>
+                  </div>
+
+                  {orderStatus === 'success' ? (
+                    <div className='success-message'>
+                      <h3>🎉 Order placed successfully!</h3>
+                      <p>Thank you for your order!</p>
+                    </div>
+                  ) : (
+                    <form onSubmit={(e) => { e.preventDefault(); handleCheckout(); }}>
+                      <div className='form-group'>
+                        <label>Name:</label>
+                        <input 
+                          type='text'
+                          value={customerInfo.name}
+                          onChange={(e) => setCustomerInfo({...customerInfo, name: e.target.value})}
+                          required
+                        />
+                      </div>
+                      <div className='form-group'>
+                        <label>Email:</label>
+                        <input 
+                          type='email'
+                          value={customerInfo.email}
+                          onChange={(e) => setCustomerInfo({...customerInfo, email: e.target.value})}
+                          required
+                        />
+                      </div>
+                      <div className='form-group'>
+                        <label>Phone:</label>
+                        <input 
+                          type='tel'
+                          value={customerInfo.phone}
+                          onChange={(e) => setCustomerInfo({...customerInfo, phone: e.target.value})}
+                          required
+                        />
+                      </div>
+                      
+                      <div className='order-summary'>
+                        <h3>Order Summary:</h3>
+                        {cart.map(item => (
+                          <div key={item.name}>
+                            {item.name} x{item.quantity} - ${(item.price * item.quantity).toFixed(2)}
                           </div>
-                        </div>
-                      ))}
+                        ))}
+                        <strong>Total: ${getTotalPrice().toFixed(2)}</strong>
+                      </div>
+
+                      <button 
+                        type='submit'
+                        disabled={orderStatus === 'submitting'}
+                        className='place-order-btn'
+                      > 
+                        {orderStatus === 'submitting' ? 'Placing Order...' : 'Place Order'}
+                      </button>
+                      
+                      {orderStatus === 'error' && (
+                        <p className='error-message'>Error placing order. Please try again later.</p>
+                      )}
+                    </form>
+                  )}
+                </div>
               </div>
-              <br />
-              <h2>Lunch & Dinner: </h2>
-              <br />
-              <div className='menu-grid'>
-                { menuItems
-                      .filter(item => item.category === 'lunch & dinner')
-                      .map(item => (
-                        <div key={item._id} className='menu-item' onClick={() => addToCart(item.name, item.price)}>
-                          <img src={item.image} alt={item.name} />
-                          <h3>{item.name}</h3>
-                          <p>{item.description}</p>
-                          <div className='item-footer'>
-                            <span className="price">${item.price.toFixed(2)}</span>
-                            <span className='click-text'>Click to add to cart</span>
-                          </div>
-                        </div>
-                      ))
-                }
-              </div>
-            
-            </>
-          )}
-
-
-        </section>
-
-        {/* Floating Cart Button */}
-<div className="floating-cart-btn" onClick={() => setIsCartOpen(!isCartOpen)}>
-  <i className="fa fa-shopping-cart" style={{fontSize:'24px'}}></i>
-  <span className="cart-count">{getTotalItems()}</span>
-</div>
-
-{/* Cart Sidebar */}
-<div className={`cart-sidebar ${isCartOpen ? 'open' : ''}`}>
-  <div className="cart-header">
-    <button className="close-cart" onClick={() => setIsCartOpen(false)}>✖</button>
-    <h2>Your Cart</h2>
-  </div>
-  <div className="cart-items">
-    {cart.length === 0 ? (
-      <p className="empty-cart">Your cart is empty</p>
-    ) : (
-      cart.map((item) => (
-        <div key={item.name} className="cart-item">
-          <div className="cart-item-info">
-            <div className="cart-item-name">{item.name}</div>
-            <div className="cart-item-price">${item.price.toFixed(2)} each</div>
-          </div>
-          <div className="quantity-controls">
-            <button className="quantity-btn" onClick={() => updateQuantity(item.name, -1)}>-</button>
-            <span className="quantity">{item.quantity}</span>
-            <button className="quantity-btn" onClick={() => updateQuantity(item.name, 1)}>+</button>
-          </div>
-          <button className="remove-item" onClick={() => removeFromCart(item.name)}>Remove</button>
-        </div>
-      ))
-    )}
-  </div>
-  {cart.length > 0 && (
-    <>
-      <div className="cart-actions">
-        <button className="clear-cart-btn" onClick={clearCart}>Clear Cart</button>
-      </div>
-      <div className="cart-total">
-        <h3>Total: ${getTotalPrice().toFixed(2)}</h3>
-      </div>
-    </>
-  )}
-</div>
-
-{/* Cart Overlay */}
-{isCartOpen && <div className="cart-overlay" onClick={() => setIsCartOpen(false)}></div>}
+            )}
         </>
-
-    )
+    );
 }
 
 export default Menu;

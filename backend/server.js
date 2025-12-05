@@ -7,9 +7,10 @@ const PORT = process.env.PORT || 5001;
 const MenuItem = require('./models/MenuItems');
 const Order = require('./models/Order');
 
+require('dotenv').config();
 
-// if anyone is reading this please know this is the one and only time I would put a connection string here (for hw assignment)
-const uri = "mongodb+srv://admin:HFnaN0XAdnOZsU6d@cluster0.agwnq69.mongodb.net/?appName=Cluster0";
+
+const uri = process.env.MONGODB_URI;
 
 mongoose.connect(uri)
     .then(() => console.log('hiya mongodb'))

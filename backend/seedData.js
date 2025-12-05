@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const MenuItem = require('./models/MenuItems');
 
-// if anyone is reading this please know this is the one and only time I would put a connection string here (for hw assignment)
-const uri = "mongodb+srv://admin:HFnaN0XAdnOZsU6d@cluster0.agwnq69.mongodb.net/?appName=Cluster0";
+const uri = process.env.MONGODB_URI;
 
 const menuItems = [
     {
