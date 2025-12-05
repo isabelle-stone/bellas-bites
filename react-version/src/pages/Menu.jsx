@@ -7,6 +7,14 @@ function Menu() {
     const [menuItems, setMenuItems] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const [showCheckout, setShowCheckout] = useState(false);
+    const [customerInfo, setCustomerInfo] = useState({
+      name: '',
+      email: '',
+      phone: ''
+    });
+    const [orderStatus, setOrderStatus] = useState('');
+
     useEffect(() => {
       fetchMenuItems();
     }, []);
@@ -57,6 +65,41 @@ function Menu() {
     const getTotalItems = () => cart.reduce((total, item) => total + item.quantity, 0);
     const getTotalPrice = () => cart.reduce((total, item) => total + (item.price * item.quantity), 0);
 
+
+    const handleCheckout = async () => {
+      setOrderStatus('submitting');
+
+      try {
+        const orderData = {
+          customerInfo,
+          items: cart,
+          totalAmount: getTotalPrice()
+        };
+        const response = await fetch('http://localhost:5001/api/orders', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(orderData)
+        });
+        const result = await response.json()
+        if (response.ok) {
+          setOrderStatus('success');
+          setCart([])
+          setCustomerInfo({ name: '', email: '', phone: ''});
+          setTimeout(() => {
+            setShowCheckout(false);
+            setOrderStatus('');
+            setIsCartOpen(false);
+
+          }, 3000) // 3 sec
+        }
+        else {
+          setOrderStatus('error');
+        }
+      } catch (error) {
+        console.error('Order submission error: ', error);
+        setOrderStatus('error');
+      }
+    };
     return (
         <>
             <section className="menu">

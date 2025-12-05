@@ -5,6 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 const MenuItem = require('./models/MenuItems');
+const Order = require('./models/Order');
 
 
 // if anyone is reading this please know this is the one and only time I would put a connection string here (for hw assignment)
@@ -27,7 +28,29 @@ app.get('/api/test', (req, res) => {
     res.json({ message: "byeeeeee", timestamp: new Date().toISOString() })
 })
 
+app.post('/api/orders', async (req, res) => {
+    try {
+        const { customerInfo, items, totalAmount } = req.body;
+        const newOrder = new Order({
+            customerInfo,
+            items,
+            totalAmount
+        });
 
+        const savedOrder = await newOrder.save();
+
+        res.status(201).json({
+            message: 'Your Order was placed :)',
+            orderId: savedOrder._id
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            message: 'There was an error placing your order.',
+            error: error.message
+        });
+    }
+})
 
 app.get('/api/menu', async (req, res) => {
     try {
