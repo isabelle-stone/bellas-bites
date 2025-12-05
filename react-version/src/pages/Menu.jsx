@@ -211,7 +211,7 @@ function Menu() {
 
                   {orderStatus === 'success' ? (
                     <div className='success-message'>
-                      <h3>🎉 Order placed successfully!</h3>
+                      <h3>Order placed successfully</h3>
                       <p>Thank you for your order!</p>
                     </div>
                   ) : (
