@@ -9,8 +9,6 @@ const PORT = process.env.PORT || 5001;
 const MenuItem = require('./models/MenuItems');
 const Order = require('./models/Order');
 
-
-
 const uri = process.env.MONGODB_URI;
 
 mongoose.connect(uri)
