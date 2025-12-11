@@ -5,17 +5,12 @@ function Menu() {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [menuItems, setMenuItems] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [showCheckout, setShowCheckout] = useState(false);
-    const [customerInfo, setCustomerInfo] = useState({
-      name: '',
-      email: '',
-      phone: ''
-    });
+    const [customerInfo, setCustomerInfo] = useState({ name: '', email: '', phone: '' });
     const [orderStatus, setOrderStatus] = useState('');
 
-    useEffect(() => {
-      fetchMenuItems();
-    }, []);
+    useEffect(() => { fetchMenuItems(); }, []);
 
     const fetchMenuItems = async () => {
       try {
@@ -30,29 +25,29 @@ function Menu() {
       }
     };
 
-    const addToCart = (name, price) => {
-        const existingItem = cart.find(item => item.name === name);
+    const addToCart = (menuItem) => {
+        const existingItem = cart.find(item => item._id === menuItem._id);
         if (existingItem) {
-            setCart(cart.map(item => item.name === name ? { ...item, quantity: item.quantity + 1} : item ));
+          setCart(cart.map(item => item._id === menuItem._id ? { ...item, quantity: item.quantity + 1} : item ));
         }
         else {
-            setCart([...cart, {name, price, quantity: 1}]);
+          setCart([...cart, {...menuItem, quantity: 1}]);
         }
         setIsCartOpen(true);
     };
 
     const updateQuantity = (name, change) => {
         setCart(cart.map(item => {
-            if (item.name === name) {
-                const newQuantity = item.quantity + change;
-                return newQuantity > 0 ? { ...item, quantity: newQuantity } : null;
+            if (item._id === name) {
+              const newQuantity = item.quantity + change;
+              return newQuantity > 0 ? { ...item, quantity: newQuantity } : null;
             }
             return item;
         }).filter(Boolean));
     };
 
     const removeFromCart = (name) => {
-        setCart(cart.filter(item => item.name !== name));
+        setCart(cart.filter(item => item._id !== name));
     };
 
     const clearCart = () => {
@@ -112,7 +107,7 @@ function Menu() {
                         {menuItems
                               .filter(item => item.category === 'breakfast')
                               .map(item => (
-                                <div key={item._id} className='menu-item' onClick={() => addToCart(item.name, item.price)}>
+                                <div key={item._id} className='menu-item' onClick={() => addToCart(item)}>
                                   <img src={item.image} alt={item.name} />
                                   <h3>{item.name}</h3>
                                   <p>{item.description}</p>
@@ -130,7 +125,7 @@ function Menu() {
                         {menuItems
                               .filter(item => item.category === 'lunch & dinner')
                               .map(item => (
-                                <div key={item._id} className='menu-item' onClick={() => addToCart(item.name, item.price)}>
+                                <div key={item._id} className='menu-item' onClick={() => addToCart(item)}>
                                   <img src={item.image} alt={item.name} />
                                   <h3>{item.name}</h3>
                                   <p>{item.description}</p>
@@ -163,17 +158,17 @@ function Menu() {
                   <p className="empty-cart">Your cart is empty</p>
                 ) : (
                   cart.map((item) => (
-                    <div key={item.name} className="cart-item">
+                    <div key={item._id} className="cart-item">
                       <div className="cart-item-info">
                         <div className="cart-item-name">{item.name}</div>
                         <div className="cart-item-price">${item.price.toFixed(2)} each</div>
                       </div>
                       <div className="quantity-controls">
-                        <button className="quantity-btn" onClick={() => updateQuantity(item.name, -1)}>-</button>
+                        <button className="quantity-btn" onClick={() => updateQuantity(item._id, -1)}>-</button>
                         <span className="quantity">{item.quantity}</span>
-                        <button className="quantity-btn" onClick={() => updateQuantity(item.name, 1)}>+</button>
+                        <button className="quantity-btn" onClick={() => updateQuantity(item._id, 1)}>+</button>
                       </div>
-                      <button className="remove-item" onClick={() => removeFromCart(item.name)}>Remove</button>
+                      <button className="remove-item" onClick={() => removeFromCart(item._id)}>Remove</button>
                     </div>
                   ))
                 )}

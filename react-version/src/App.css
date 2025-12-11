@@ -713,7 +713,69 @@ footer {
 
 }
 
+.checkout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #6F496F;
+}
 
+.checkout-header h2 {
+    color: #6F496F;
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.checkout-header button {
+    background: #A675A1;
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 20%;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.order-summary {
+    background: #f0e9f0;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 1.5rem 0;
+}
+
+.order-summary h3 {
+    color: #6F496F;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #6F496F;
+    padding-bottom: .2rem;
+
+}
+
+.order-summary > div {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.1rem;
+    margin: 0.8rem 0; 
+    padding: 0.1rem 0;
+    border-bottom: #6F496F;
+    
+
+}
+
+.place-order-btn {
+    background: #A675A1;
+    color: white;
+    border: none;
+    border-radius: 10%;
+    font-size: 14px;
+    cursor: pointer;
+    padding: .5rem .7rem;
+    font-family: 'Playfair Display';
+    transition: background 0.3s;
+
+}
 
 /******** Media Queries ************/
 /* Hamburger Menu */
