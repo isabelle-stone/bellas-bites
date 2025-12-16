@@ -12,8 +12,17 @@ const Order = require('./models/Order');
 const uri = process.env.MONGODB_URI;
 
 mongoose.connect(uri)
-    .then(() => console.log('hiya mongodb'))
-    .catch(err => console.error('NOOOOOooooooo ', err));
+    .then(() => {
+        console.log('hiya mongodb');
+        // start server after DB connects
+        app.listen(PORT, '0.0.0.0', () => {
+            console.log(`Server running on port ${PORT}`);
+        });
+    })
+    .catch(err => {
+        console.error('NOOOOOooooooo ', err);
+        process.exit(1);
+    });
 
 app.get('/health', (req, res) => {
     res.status(200).send('OK');
@@ -68,6 +77,6 @@ app.get('/api/menu', async (req, res) => {
 });
 
 
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// app.listen(PORT, '0.0.0.0', () => {
+//     console.log(`Server running on port ${PORT}`);
+// });
