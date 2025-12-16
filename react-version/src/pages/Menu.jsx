@@ -14,7 +14,7 @@ function Menu() {
 
     const fetchMenuItems = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/menu');
+        const response = await fetch('https://bellas-bites-production.up.railway.app/api/menu');
         const data = await response.json();
         setMenuItems(data);
         setLoading(false);
@@ -66,7 +66,7 @@ function Menu() {
           items: cart,
           totalAmount: getTotalPrice()
         };
-        const response = await fetch('http://localhost:5001/api/orders', {
+        const response = await fetch('https://bellas-bites-production.up.railway.app/api/orders', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(orderData)
