@@ -14,7 +14,7 @@ function Menu() {
 
     const fetchMenuItems = async () => {
       try {
-        const response = await fetch('https://bellas-bites-production.up.railway.app/api/menu');
+        const response = await fetch('https://bellas-bites.onrender.com/');
         const data = await response.json();
         setMenuItems(data);
         setLoading(false);
