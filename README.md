@@ -4,7 +4,7 @@ A responsive restaurant website built with React, showcasing modern web developm
 
 ## Live Demos
 **Original HTML Version:** https://bellasbites.netlify.app/  
-**React Version:** https://bellasbites-react.netlify.app/
+**React Version:** [https://bellasbites-react.netlify.app/](https://bellas-bites.vercel.app/)
 
 ## Technologies
 - React 18 with Hooks
