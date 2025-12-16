@@ -16,7 +16,7 @@ mongoose.connect(uri)
     .catch(err => console.error('NOOOOOooooooo ', err));
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://bellasbites-react.netlify.app'],
+    origin: ['http://localhost:5173', 'https://bellas-bites.vercel.app'],
     credentials: true
 }));
 app.use(express.json());
