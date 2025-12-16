@@ -15,8 +15,10 @@ mongoose.connect(uri)
     .then(() => console.log('hiya mongodb'))
     .catch(err => console.error('NOOOOOooooooo ', err));
 
-app.use(cors());
-
+app.use(cors({
+    origin: ['http://localhost:5173', 'https://bellasbites-react.netlify.app'],
+    credentials: true
+}));
 app.use(express.json());
 
 // Routes
