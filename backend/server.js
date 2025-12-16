@@ -15,6 +15,9 @@ mongoose.connect(uri)
     .then(() => console.log('hiya mongodb'))
     .catch(err => console.error('NOOOOOooooooo ', err));
 
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+ });
 app.use(cors({
     origin: '*',
     credentials: false
