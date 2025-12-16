@@ -15,21 +15,7 @@ mongoose.connect(uri)
     .then(() => console.log('hiya mongodb'))
     .catch(err => console.error('NOOOOOooooooo ', err));
 
-    app.use(cors({
-        origin: function(origin, callback) {
-            const allowedOrigins = [
-                'http://localhost:5173',
-                'https://bellas-bites.vercel.app'
-            ];
-            // allow any Vercel preview domain...
-            if (!origin || allowedOrigins.includes(origin) || origin.includes('.vercel.app')) {
-                callback(null, true);
-            } else {
-                callback(new Error('Not allowed by CORS'));
-            }
-        },
-        credentials: true
-    }));
+app.use(cors());
 
 app.use(express.json());
 
