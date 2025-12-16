@@ -14,13 +14,33 @@ function Menu() {
 
     const fetchMenuItems = async () => {
       try {
-        const response = await fetch('https://bellas-bites.onrender.com/api/menu');
+        const baseUrl = window.location.hostname === 'localhost' 
+          ? 'http://localhost:5001' 
+          : 'https://bellas-bites.onrender.com';
+          
+        const response = await fetch(`${baseUrl}/api/menu`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
-        setMenuItems(data);
+        
+      
+        if (Array.isArray(data)) {
+          setMenuItems(data);
+        } else {
+          console.error('Menu data is not an array:', data);
+          setMenuItems([]);
+          setError('Invalid menu data format');
+        }
+        
         setLoading(false);
       }
       catch (error) {
-        console.error('Error w fetching menu: ', error);
+        console.error('Error fetching menu: ', error);
+        setMenuItems([]); 
+        setError(error.message);
         setLoading(false);
       }
     };
