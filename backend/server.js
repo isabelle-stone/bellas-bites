@@ -15,7 +15,10 @@ mongoose.connect(uri)
     .then(() => console.log('hiya mongodb'))
     .catch(err => console.error('NOOOOOooooooo ', err));
 
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    credentials: false
+}));
 
 app.use(express.json());
 
