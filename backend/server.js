@@ -6,6 +6,12 @@ const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 5001;
 
+app.use(cors({
+    origin: '*',
+    credentials: false
+}));
+
+
 const MenuItem = require('./models/MenuItems');
 const Order = require('./models/Order');
 
@@ -27,10 +33,6 @@ mongoose.connect(uri)
 app.get('/health', (req, res) => {
     res.status(200).send('OK');
  });
-app.use(cors({
-    origin: '*',
-    credentials: false
-}));
 
 app.use(express.json());
 
